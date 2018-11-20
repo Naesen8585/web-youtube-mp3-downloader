@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<script type="text/javascript">
+
+function check()
+
+{
+
+$("#checking").show();
+
+}
+
+function hideme()
+{
+  $("#linking").hide();
+}
+
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+
+<body>
+<b>Enter the youtube URL of the video, select the audio file from the dropdown, and click Submit.</b>
+</br>
+</br>
+<form action="/upload" id="fileform" method="post">
+  YouTube URL:<input type="text" name="ytlink">
+  <input type="submit" name="downloadinfo" onClick="check();">
+  <div id="checking" style="display:none"><img src=/static/processing.gif></img></div>
+
+</form>
+</br>
+</br>
+<b>Select the audio file type you'd like to extract from the video:</b>
+<select name="filetype" form="fileform">
+  <option value="mp3">mp3</option>
+  <option value="aac">aac</option>
+  <option value="m4a">m4a</option>
+  <option value="opus">opus</option>
+  <option value="vorbis">vorbis</option>
+  <option value="wav">wav</option>
+  <option value="best">Automatically detect and return the best format</option>
+</select>
+
+</br>
+</br>
+<b>When operations are complete, your link will appear below, click it to download your file.</b>
+</br>
+<b>The link will disappear on click, the file will download to your computer, and will be unavailable to be downloaded again.</b>
+
+</br>
+</br>
+
+	<div id="linking"><b><a href="/download/{{ linkdata }}" onclick="hideme();">{{ linkdata }}</a></b></div>
+</body>
+</html>
