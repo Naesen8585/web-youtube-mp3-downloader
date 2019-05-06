@@ -10,5 +10,7 @@ done
 
 
 if [ -d "$basedirectory" ]; then
+  sudo pip3 install -U youtube-dl
+  sudo pip install -U youtube-dl
   python3 $basedirectory/__init__.py $portnumber $chunksize
 fi

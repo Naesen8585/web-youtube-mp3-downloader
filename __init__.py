@@ -7,11 +7,11 @@ Does some snazzy 'processing' thing,
 then returns it as the file to download.
 
 '''
-
 from flask import Flask, render_template, request, redirect, Response
 from flask import make_response, send_file
 from helpers import *
 import sys
+import re
 app = Flask(__name__)
 # app.config.from_object("config")
 
@@ -42,8 +42,21 @@ def getdata():
     youtubelink = request.form['ytlink']
     filetype = request.form['filetype']
     print("Performing download and extraction ops")
-    filename = downloadfromyoutube(youtubelink, filetype)
+    filename = downloadfromyoutube(youtubelink, filetype, app)
+    # print(filename)
+    # if filename[0] == "‡":
+    # print(type(downloadfromyoutube(youtubelink, filetype, app)))
+    # mytest = (Response(downloadfromyoutube(
+    #    youtubelink, filetype, app), mimetype='text/html'))
+    # print(mytest)
+    # print(type(mytest))
+    #testing = str(mytest)
+    # if not testing.startswith("b'[") and testing.endswith(str(filetype), len(testing) - 1):
+    #    return render_template("index.html", linkdata=(str(testing)))
+    # else:
     return render_template("index.html", linkdata=(filename))
+    # else:
+    # return render_template("index.html", linkdata=(downloadfromyoutube(youtubelink, filetype, app)))
 
 
 if __name__ == "__main__":
