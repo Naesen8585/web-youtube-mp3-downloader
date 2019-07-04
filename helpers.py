@@ -14,26 +14,35 @@ import time
 
 def downloadfromyoutube(vid_url, audio_format, flaskapp):
 
+    if re.search("bitchute", str(vid_url).lower()):
+        try:
+            print("this appears to be bitchute. Performing vid url extraction")
+            cmdbitchute = ["curl", "-s", str(vid_url), "|", "grep", "-Eoi", "'<source [^>]+>'", "|",
+                           "grep", "-Eo", "'src=\"[ ^\\\"]+\"'", "|", "grep", "-Eo", "'(http|https)://[^\"] +'"]
+
+            procbitchute = subprocess.Popen(cmdbitchute, stdout=subprocess.PIPE)
+            for stdout_linebitchute in iter(procbitchute.stdout.readline, b''):
+
+                itembitchute = str(stdout_linebitchute)
+                vid_url = item123
+        except:
+            return "Unable to extract bitchute video, no file downloaded."
+    print("the vid url passed is ")
+    print(vid_url)
     cmd = ["/usr/local/bin/youtube-dl", str(vid_url), "--no-warnings", "--restrict-filenames",
-           "--extract-audio", "--audio-format", str(audio_format), "--youtube-skip-dash-manifest", "--no-color", "--newline"]
+           "--extract-audio", "--audio-format", str(audio_format), "--no-check-certificate"]
     returnlist = []
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE)
-    #cmd2 = ["sudo", "renice", "+10", "$(pidof ffmpeg)"]
-    # if proc:
-    #    proc2 = subprocess.Popen(cmd2, stdout=subprocess.PIPE)
     finalvideoname = ""
     videodeleted = False
     finalmp3filename = ""
     for stdout_line in iter(proc.stdout.readline, b''):
-        # yield "‡" + str(stdout_line)
-        #stdout_line.rstrip() + '<br/>\n'
         item = str(stdout_line)
         print(item)
 
         if (re.search("[download]", item) and re.search("Destination", item)):
             arraytosplit = item.split(" ")
             finalvideoname = arraytosplit[-1]
-            #print("found it!")
             finalvideoarray = finalvideoname.split('\\n')
             finalvideoname = finalvideoarray[0]
             print("video name is")
@@ -41,7 +50,7 @@ def downloadfromyoutube(vid_url, audio_format, flaskapp):
         if (re.search("ffmpeg", item) and re.search("Destination", item)):
             arraytosplit = item.split(" ")
             finalmp3filename = arraytosplit[-1]
-            #print("found it!")
+
             finalmp3filearray = finalmp3filename.split('\\n')
 
             finalmp3filename = finalmp3filearray[0]
@@ -51,33 +60,6 @@ def downloadfromyoutube(vid_url, audio_format, flaskapp):
             print("Done!")
             print(finalmp3filename)
             return finalmp3filename
-            # print(finalmp3filename)
-        # if len(finalvideoname) > 0 and len(finalmp3filename) > 0:
-        #    if os.path.isfile('./' + finalvideoname):
-        #        print("Waiting on the file to be finished...")
-        #        # yield "Waiting on file to be finished..."
-        #    else:
-        #        # yield finalmp3filename
-        #        return finalmp3filename
-
-            # yield "‡" + str(stdout_line).rstrip() + '<br/>\n'
-        # return Response(str(stdout_line), mimetype='text/html')
-    # for line in proc.stdout.readlines():
-    #    print("doing list appending stuff")
-    #    returnlist.append(str(line))
-    #finalmp3filename = ""
-    # for item in returnlist:
-    #    printstring = ("Finding the %s filename...", (audio_format))
-    #    print(printstring)
-    #    if (re.search("ffmpeg", item) and re.search("Destination", item)):
-    #        arraytosplit = item.split(" ")
-    #        finalmp3filename = arraytosplit[-1]
-    #        print("found it!")
-    #        break
-    # print(finalmp3filename)
-    #finalmp3filearray = finalmp3filename.split('\\n')
-    #finalmp3filename = finalmp3filearray[0]
-    # return finalmp3filename
 
 
 def return_file(filename, chunk_size):
