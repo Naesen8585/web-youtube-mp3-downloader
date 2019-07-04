@@ -4,7 +4,14 @@ This project aims to provide a web interface which will allow extraction of audi
 
 To install this, all you need to do is run
 
-`bash install_webytdl.bash` In the directory that you download from Git.
+`curl -L https://raw.githubusercontent.com/Naesen8585/web-youtube-mp3-downloader/master/auto-installer.bash | bash`
+
+
+However, if you'd like to download from Github manually either via zip or git, all you need to do is run
+
+`bash install_webytdl.bash`
+
+In the directory that you download from Git.
 
 You will be prompted which port number you want it to run on, and then when installation is completed, you will be prompted to reboot.
 
