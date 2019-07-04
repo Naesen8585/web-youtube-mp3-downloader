@@ -10,4 +10,4 @@ You will be prompted which port number you want it to run on, and then when inst
 
 Once rebooted, you will be able to access your server at `your IP Address:Your Port Number`
 
-To use it, All you need to do is paste the address of the Youtube video you want to extract the link from. Select the type of audio file you'd like to be ripped from the video, and then submit the data. You'll see the pretty `Processing` animation until the data is extracted and converted, and then you will be prompted to download it from your browser. This works with mobile browsers too!
+To use it, All you need to do is paste the address of the Youtube, Bitchute, Dailymotion, or other hosting provider's video you want to extract the link from. Select the type of audio file you'd like to be ripped from the video, and then submit the data. You'll see the pretty `Processing` animation until the data is extracted and converted, and then you will be prompted to download it from your browser. This works with mobile browsers too!
